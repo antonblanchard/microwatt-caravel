@@ -2,11 +2,12 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![UPRJ_CI](https://github.com/efabless/caravel_project_example/actions/workflows/user_project_ci.yml/badge.svg)](https://github.com/efabless/caravel_project_example/actions/workflows/user_project_ci.yml) [![Caravel Build](https://github.com/efabless/caravel_project_example/actions/workflows/caravel_build.yml/badge.svg)](https://github.com/efabless/caravel_project_example/actions/workflows/caravel_build.yml)
 
-| :exclamation: Important Note            |
-|-----------------------------------------|
+Microwatt on Caravel
+====================
 
-## Please fill in your project documentation in this README.md file 
+The Microwatt 64 bit OpenPOWER core integrated into the Caravel SKY130 shuttles.
 
-Refer to [README](docs/source/quickstart.rst) for a quick start of how to use caravel_user_project
+Tests
+=====
 
-Refer to [README](docs/source/index.rst) for this sample project documentation. 
+- Check out verilog/dv/caravel/microwatt/README.md

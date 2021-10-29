@@ -21,8 +21,15 @@
     // Assume default net type to be wire because GL netlists don't have the wire definitions
     `default_nettype wire
     `include "gl/user_project_wrapper.v"
-    `include "gl/user_proj_example.v"
+    `include "gl/Microwatt_FP_DFFRFile.v"
+    `include "gl/multiply_add_64x64.v"
+    `include "gl/RAM32_1RW1R.v"
+    `include "gl/RAM512.v"
 `else
     `include "user_project_wrapper.v"
-    `include "user_proj_example.v"
+    `include "Microwatt_FP_DFFRFile.v"
+    `include "multiply_add_64x64.v"
+    `include "RAM32_1RW1R.v"
+    `include "RAM512.v"
+    `include "microwatt.v"
 `endif

@@ -1,0 +1,29 @@
+# SPDX-FileCopyrightText: 2020 Efabless Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# SPDX-License-Identifier: Apache-2.0
+
+include ../make.env
+
+PATTERN = simplebus_micropython
+all: ${PATTERN:=.vcd}
+
+micropython.hex: micropython.bin
+	dd if=/dev/null of=micropython.bin bs=1 count=1 seek=524288
+	./bin2hex.py micropython.bin > micropython.hex
+
+microwatt.elf: microwatt.c ../lib/console.c ../lib/head.S ../microwatt.lds micropython.hex
+	$(POWERPC_CROSS_COMPILE)gcc $(POWERPC_CFLAGS) -Wl,-T,../microwatt.lds -o $@ microwatt.c ../lib/console.c ../lib/head.S
+
+include ../make.rules
