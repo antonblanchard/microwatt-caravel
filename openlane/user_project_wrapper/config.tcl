@@ -19,7 +19,7 @@
 set ::env(PDK) "sky130A"
 set ::env(STD_CELL_LIBRARY) "sky130_fd_sc_hd"
 
-# YOU ARE NOT ALLOWED TO CHANGE ANY VARIABLES DEFINED IN THE FIXED WRAPPER CFGS 
+# YOU ARE NOT ALLOWED TO CHANGE ANY VARIABLES DEFINED IN THE FIXED WRAPPER CFGS
 source $::env(CARAVEL_ROOT)/openlane/user_project_wrapper/fixed_wrapper_cfgs.tcl
 
 # YOU CAN CHANGE ANY VARIABLES DEFINED IN THE DEFAULT WRAPPER CFGS BY OVERRIDING THEM IN THIS CONFIG.TCL
@@ -35,13 +35,16 @@ set ::env(DESIGN_NAME) user_project_wrapper
 ## Source Verilog Files
 set ::env(VERILOG_FILES) "\
 	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
+	$script_dir/../../verilog/rtl/microwatt.v \
 	$script_dir/../../verilog/rtl/user_project_wrapper.v"
 
 ## Clock configurations
 set ::env(CLOCK_PORT) "user_clock2"
-set ::env(CLOCK_NET) "mprj.clk"
-
-set ::env(CLOCK_PERIOD) "10"
+set ::env(CLOCK_NET) $::env(CLOCK_PORT)
+set ::env(BASE_SDC_FILE) $script_dir/base.sdc
+ 
+# Speed up?
+set ::env(CLOCK_PERIOD) "30"
 
 ## Internal Macros
 ### Macro PDN Connections
@@ -54,33 +57,65 @@ set ::env(MACRO_PLACEMENT_CFG) $script_dir/macro.cfg
 ### Black-box verilog and views
 set ::env(VERILOG_FILES_BLACKBOX) "\
 	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
-	$script_dir/../../verilog/rtl/user_proj_example.v"
+	$script_dir/../../verilog/rtl/wrapper/RAM512.v \
+	$script_dir/../../verilog/rtl/wrapper/RAM32_1RW1R.v \
+	$script_dir/../../verilog/rtl/wrapper/Microwatt_FP_DFFRFile.v \
+	$script_dir/../../verilog/rtl/wrapper/multiply_add_64x64.v"
 
 set ::env(EXTRA_LEFS) "\
-	$script_dir/../../lef/user_proj_example.lef"
+	$script_dir/../../lef/RAM512.lef \
+	$script_dir/../../lef/RAM32_1RW1R.lef \
+	$script_dir/../../lef/Microwatt_FP_DFFRFile.lef \
+	$script_dir/../../lef/multiply_add_64x64.lef"
 
 set ::env(EXTRA_GDS_FILES) "\
-	$script_dir/../../gds/user_proj_example.gds"
+	$script_dir/../../gds/RAM512.gds \
+	$script_dir/../../gds/RAM32_1RW1R.gds \
+	$script_dir/../../gds/Microwatt_FP_DFFRFile.gds \
+	$script_dir/../../gds/multiply_add_64x64.gds"
 
-# set ::env(GLB_RT_MAXLAYER) 5
-set ::env(RT_MAX_LAYER) {met4}
+set ::env(EXTRA_LIBS) "\
+	$script_dir/RAM512.lib \
+	$script_dir/RAM32_1RW1R.lib \
+	$script_dir/Microwatt_FP_DFFRFile.lib \
+	$script_dir/multiply_add_64x64.lib"
 
 # disable pdn check nodes becuase it hangs with multiple power domains.
 # any issue with pdn connections will be flagged with LVS so it is not a critical check.
-set ::env(FP_PDN_CHECK_NODES) 0
+##set ::env(FP_PDN_CHECK_NODES) 0
 
-# The following is because there are no std cells in the example wrapper project.
-set ::env(SYNTH_TOP_LEVEL) 1
-set ::env(PL_RANDOM_GLB_PLACEMENT) 1
+# Synthesis tuning
+set ::env(SYNTH_MAX_FANOUT) {10}
+set ::env(SYNTH_STRATEGY) {DELAY 4}
 
-set ::env(PL_RESIZER_DESIGN_OPTIMIZATIONS) 0
-set ::env(PL_RESIZER_TIMING_OPTIMIZATIONS) 0
-set ::env(PL_RESIZER_BUFFER_INPUT_PORTS) 0
-set ::env(PL_RESIZER_BUFFER_OUTPUT_PORTS) 0
+# Floor plan tuning
+set ::env(FP_TAP_HORIZONTAL_HALO) 40
+set ::env(FP_PDN_HORIZONTAL_HALO) 40
+set ::env(FP_TAP_VERTICAL_HALO) 40
+set ::env(FP_PDN_VERTICAL_HALO) 40
 
-set ::env(FP_PDN_ENABLE_RAILS) 0
+# Placement tuning
+set ::env(PL_TARGET_DENSITY) 0.25
+set ::env(PL_RESIZER_HOLD_SLACK_MARGIN) "0.3"
+# Disable until the routability fixes go upstream
+#set ::env(PL_ROUTABILITY_DRIVEN) 1
+set ::env(PL_TIME_DRIVEN) 1
+set ::env(CELL_PAD) 6
 
-set ::env(DIODE_INSERTION_STRATEGY) 0
-set ::env(FILL_INSERTION) 0
-set ::env(TAP_DECAP_INSERTION) 0
-set ::env(CLOCK_TREE_SYNTH) 0
+# Global routing tuning
+set ::env(GLB_RT_ADJUSTMENT) 0.2
+
+# CTS tuning
+set ::env(CTS_CLK_BUFFER_LIST) {sky130_fd_sc_hd__clkbuf_8 sky130_fd_sc_hd__clkbuf_4 sky130_fd_sc_hd__clkbuf_2};
+set ::env(CTS_DISABLE_POST_PROCESSING) 1
+set ::env(CTS_SINK_CLUSTERING_MAX_DIAMETER) 200
+set ::env(CTS_DISTANCE_BETWEEN_BUFFERS) 1000
+
+# Speed up tape out a bit
+set ::env(RUN_KLAYOUT) 0
+
+if {[catch {exec nproc} result] == 0} {
+	set ::env(ROUTING_CORES) $result
+} else {
+	set ::env(ROUTING_CORES) 24
+}
