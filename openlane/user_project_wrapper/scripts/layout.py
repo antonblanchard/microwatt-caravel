@@ -57,9 +57,6 @@ ram32_1rw1r = get_macro_size('RAM32_1RW1R')
 multiply_add_64x64 = get_macro_size('multiply_add_64x64')
 microwatt_fp_dffrfile = get_macro_size('Microwatt_FP_DFFRFile')
 
-cache_end_y = icache_ram_1_l[Y]+ram32_1rw1r[Y]
-middle_y = (ram_l[Y]-cache_end_y)/2 + cache_end_y
-
 # Macro layout
 
 # RAM at top
@@ -68,6 +65,9 @@ ram_l =            (align_h((die_size[X]-ram512[X])/2),                         
 # cache RAMs at bottom - need a bigger margin because there are a lot of wires
 icache_ram_1_l =   (align_h(horizontal_margin),                                           align_v(vertical_margin))
 dcache_ram_1_l =   (align_h_down(die_size[X]-ram32_1rw1r[X]-horizontal_margin),           align_v(vertical_margin))
+
+cache_end_y = icache_ram_1_l[Y]+ram32_1rw1r[Y]
+middle_y = (ram_l[Y]-cache_end_y)/2 + cache_end_y
 
 # Multipliers and regfile in middle
 multiplier_l =     (align_h(horizontal_margin),                                           align_v(cache_end_y + 300))
