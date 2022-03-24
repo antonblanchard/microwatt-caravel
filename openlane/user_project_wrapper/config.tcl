@@ -105,6 +105,7 @@ set ::env(PL_RESIZER_HOLD_SLACK_MARGIN) "0.8"
 set ::env(SYNTH_STRATEGY) {DELAY 4}
 
 # CTS tuning
+set ::env(CTS_CLK_BUFFER_LIST) {sky130_fd_sc_hd__clkbuf_8 sky130_fd_sc_hd__clkbuf_4 sky130_fd_sc_hd__clkbuf_2};
 set ::env(CTS_DISABLE_POST_PROCESSING) 1
 set ::env(CTS_SINK_CLUSTERING_MAX_DIAMETER) 200
 set ::env(CTS_DISTANCE_BETWEEN_BUFFERS) 1000
