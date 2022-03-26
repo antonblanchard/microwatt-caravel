@@ -84,7 +84,7 @@ if {[catch {exec nproc} result] == 0} {
 	set ::env(ROUTING_CORES) 24
 }
 
-set ::env(PL_TARGET_DENSITY) 0.19
+set ::env(PL_TARGET_DENSITY) 0.18
 
 set ::env(FP_TAP_HORIZONTAL_HALO) 40
 set ::env(FP_PDN_HORIZONTAL_HALO) 40
@@ -109,5 +109,3 @@ set ::env(CTS_CLK_BUFFER_LIST) {sky130_fd_sc_hd__clkbuf_8 sky130_fd_sc_hd__clkbu
 set ::env(CTS_DISABLE_POST_PROCESSING) 1
 set ::env(CTS_SINK_CLUSTERING_MAX_DIAMETER) 200
 set ::env(CTS_DISTANCE_BETWEEN_BUFFERS) 1000
-
-set ::env(RUN_KLAYOUT) 0

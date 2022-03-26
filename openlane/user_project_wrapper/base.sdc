@@ -36,7 +36,8 @@ set_clock_groups -name group1 -logically_exclusive \
 # There are two issues here:
 # - RAM512 has hold violations in its design
 # - Since OpenROAD can't produce timing information for macros (liberty files), the
-#   paths to and from the macros are unconstrained. We need explicit constraints.
+#   paths to and from the macros are unconstrained. We need explicit constraints to
+#   specify data in must change after the clock.
 set ram512_delay 6
 set_min_delay -to microwatt_0.soc0.bram.bram0.ram_0.memory_0/EN0* $ram512_delay
 set_min_delay -to microwatt_0.soc0.bram.bram0.ram_0.memory_0/A0* $ram512_delay
@@ -66,6 +67,14 @@ set_min_delay -to microwatt_0.soc0.processor.execute1_0.multiply_0.multiplier/c 
 set_min_delay -to microwatt_0.soc0.processor.with_fpu.fpu_0.fpu_multiply_0.multiplier/a $multiplier_delay
 set_min_delay -to microwatt_0.soc0.processor.with_fpu.fpu_0.fpu_multiply_0.multiplier/b $multiplier_delay
 set_min_delay -to microwatt_0.soc0.processor.with_fpu.fpu_0.fpu_multiply_0.multiplier/c $multiplier_delay
+
+set register_file_delay 5
+set_min_delay -to microwatt_0.soc0.processor.register_file_0.register_file_0/R1 $register_file_delay
+set_min_delay -to microwatt_0.soc0.processor.register_file_0.register_file_0/R2 $register_file_delay
+set_min_delay -to microwatt_0.soc0.processor.register_file_0.register_file_0/R3 $register_file_delay
+set_min_delay -to microwatt_0.soc0.processor.register_file_0.register_file_0/RW $register_file_delay
+set_min_delay -to microwatt_0.soc0.processor.register_file_0.register_file_0/DW $register_file_delay
+set_min_delay -to microwatt_0.soc0.processor.register_file_0.register_file_0/WE $register_file_delay
 
 # TODO set this as parameter
 set_driving_cell -lib_cell $::env(SYNTH_DRIVING_CELL) -pin $::env(SYNTH_DRIVING_CELL_PIN) [all_inputs]
