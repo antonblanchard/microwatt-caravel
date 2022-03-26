@@ -64,16 +64,5 @@ set ::env(PL_TIME_DRIVEN) 1
 set ::env(SYNTH_STRATEGY) {DELAY 4}
 
 # CTS tuning
+set ::env(CTS_CLK_BUFFER_LIST) {sky130_fd_sc_hd__clkbuf_8 sky130_fd_sc_hd__clkbuf_4 sky130_fd_sc_hd__clkbuf_2};
 set ::env(CTS_DISABLE_POST_PROCESSING) 1
-
-set ::env(RUN_KLAYOUT) 0
-
-# Hacking
-
-# ext2spice is failing when using the LEF
-##set ::env(MAGIC_EXT_USE_GDS) 1
-# This doesn't work with a gds.spice file for some reason
-##set ::env(RUN_CVC) 0
-
-# Why was this disabled upstream recently?
-##set ::env(GLB_RESIZER_TIMING_OPTIMIZATIONS) 1
