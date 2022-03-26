@@ -33,6 +33,40 @@ set_clock_groups -name group1 -logically_exclusive \
  -group [get_clocks jtag_clk]\
  -group [get_clocks $::env(CLOCK_PORT)]
 
+# There are two issues here:
+# - RAM512 has hold violations in its design
+# - Since OpenROAD can't produce timing information for macros (liberty files), the
+#   paths to and from the macros are unconstrained. We need explicit constraints.
+set ram512_delay 6
+set_min_delay -to microwatt_0.soc0.bram.bram0.ram_0.memory_0/EN0* $ram512_delay
+set_min_delay -to microwatt_0.soc0.bram.bram0.ram_0.memory_0/A0* $ram512_delay
+set_min_delay -to microwatt_0.soc0.bram.bram0.ram_0.memory_0/Di0* $ram512_delay
+set_min_delay -to microwatt_0.soc0.bram.bram0.ram_0.memory_0/WE0* $ram512_delay
+
+set ram32_delay 5
+set_min_delay -to microwatt_0.soc0.processor.dcache_0.rams:1.way.cache_ram_0/A0* $ram32_delay
+set_min_delay -to microwatt_0.soc0.processor.dcache_0.rams:1.way.cache_ram_0/A1* $ram32_delay
+set_min_delay -to microwatt_0.soc0.processor.dcache_0.rams:1.way.cache_ram_0/Di0* $ram32_delay
+set_min_delay -to microwatt_0.soc0.processor.dcache_0.rams:1.way.cache_ram_0/EN0* $ram32_delay
+set_min_delay -to microwatt_0.soc0.processor.dcache_0.rams:1.way.cache_ram_0/EN1* $ram32_delay
+set_min_delay -to microwatt_0.soc0.processor.dcache_0.rams:1.way.cache_ram_0/WE0* $ram32_delay
+
+set_min_delay -to microwatt_0.soc0.processor.icache_0.rams:1.way.cache_ram_0/A0* $ram32_delay
+set_min_delay -to microwatt_0.soc0.processor.icache_0.rams:1.way.cache_ram_0/A1* $ram32_delay
+set_min_delay -to microwatt_0.soc0.processor.icache_0.rams:1.way.cache_ram_0/Di0* $ram32_delay
+set_min_delay -to microwatt_0.soc0.processor.icache_0.rams:1.way.cache_ram_0/EN0* $ram32_delay
+set_min_delay -to microwatt_0.soc0.processor.icache_0.rams:1.way.cache_ram_0/EN1* $ram32_delay
+set_min_delay -to microwatt_0.soc0.processor.icache_0.rams:1.way.cache_ram_0/WE0* $ram32_delay
+
+set multiplier_delay 5
+set_min_delay -to microwatt_0.soc0.processor.execute1_0.multiply_0.multiplier/a $multiplier_delay
+set_min_delay -to microwatt_0.soc0.processor.execute1_0.multiply_0.multiplier/b $multiplier_delay
+set_min_delay -to microwatt_0.soc0.processor.execute1_0.multiply_0.multiplier/c $multiplier_delay
+
+set_min_delay -to microwatt_0.soc0.processor.with_fpu.fpu_0.fpu_multiply_0.multiplier/a $multiplier_delay
+set_min_delay -to microwatt_0.soc0.processor.with_fpu.fpu_0.fpu_multiply_0.multiplier/b $multiplier_delay
+set_min_delay -to microwatt_0.soc0.processor.with_fpu.fpu_0.fpu_multiply_0.multiplier/c $multiplier_delay
+
 # TODO set this as parameter
 set_driving_cell -lib_cell $::env(SYNTH_DRIVING_CELL) -pin $::env(SYNTH_DRIVING_CELL_PIN) [all_inputs]
 set cap_load [expr $::env(SYNTH_CAP_LOAD) / 1000.0]

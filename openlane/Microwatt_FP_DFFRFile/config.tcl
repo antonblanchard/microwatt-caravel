@@ -8,7 +8,6 @@ set ::env(VERILOG_FILES) "\
 set ::env(CLOCK_PORT) "CLK"
 set ::env(CLOCK_PERIOD) "10"
 set ::env(CLOCK_NET) $::env(CLOCK_PORT)
-set ::env(BASE_SDC_FILE) $script_dir/base.sdc
 
 set ::env(FP_SIZING) absolute
 set ::env(DIE_AREA) "0 0 1150 1150"
@@ -49,9 +48,9 @@ if {[catch {exec nproc} result] == 0} {
 
 #set ::env(IO_PCT) 0.5
 
-#set ::env(PL_RESIZER_HOLD_SLACK_MARGIN) "0.5"
+set ::env(PL_RESIZER_HOLD_SLACK_MARGIN) "0.4"
 set ::env(ECO_ENABLE) 1
-#set ::env(ECO_SKIP_PIN) 0
+set ::env(ECO_SKIP_PIN) 0
 
 set ::env(DIODE_INSERTION_STRATEGY) 0
 
