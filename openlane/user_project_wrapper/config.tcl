@@ -91,8 +91,8 @@ set ::env(SYNTH_STRATEGY) {DELAY 4}
 # Floor plan tuning
 set ::env(FP_TAP_HORIZONTAL_HALO) 40
 set ::env(FP_PDN_HORIZONTAL_HALO) 40
-set ::env(FP_TAP_VERTICAL_HALO) 40
-set ::env(FP_PDN_VERTICAL_HALO) 40
+set ::env(FP_TAP_VERTICAL_HALO) 10
+set ::env(FP_PDN_VERTICAL_HALO) 10
 
 # Placement tuning
 set ::env(PL_TARGET_DENSITY) 0.25
@@ -120,4 +120,4 @@ if {[catch {exec nproc} result] == 0} {
 	set ::env(ROUTING_CORES) 24
 }
 
-set ::env(DIODE_INSERTION_STRATEGY) 0
+#set ::env(DIODE_INSERTION_STRATEGY) 0
