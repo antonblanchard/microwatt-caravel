@@ -120,4 +120,4 @@ if {[catch {exec nproc} result] == 0} {
 	set ::env(ROUTING_CORES) 24
 }
 
-#set ::env(DIODE_INSERTION_STRATEGY) 0
+set ::env(DIODE_INSERTION_STRATEGY) 0
