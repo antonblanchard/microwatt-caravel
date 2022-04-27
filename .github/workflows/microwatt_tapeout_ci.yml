@@ -1,0 +1,101 @@
+name: Tape Out CI
+
+# Tape outs require much more CPU and RAM than github runners provide
+# (currently 2 VCPUs and 7GB RAM), so we run the tape out manually but
+# trigger the tape out CI on push of the GDS.
+
+on:
+  push:
+    paths: 'gds/user_project_wrapper.gds*'
+  pull_request:
+    paths: 'gds/user_project_wrapper.gds*'
+  workflow_dispatch:
+
+jobs:
+  mpw_precheck:
+    timeout-minutes: 720
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Create environment variables
+        run: |
+          echo "PDK_ROOT=/home/runner/work/pdk" >> $GITHUB_ENV
+          echo "PDK=sky130A" >> $GITHUB_ENV
+          echo "OPENLANE_ROOT=/home/runner/work/caravel_user_project/openlane" >> $GITHUB_ENV
+
+      - name: Install dependencies
+        run: |
+          sudo mkdir -p ${{ env.PDK_ROOT }}
+          sudo chown -R $USER:$USER ${{ env.PDK_ROOT }}
+          make install
+          make openlane
+          make pdk-with-volare
+
+      - name: Run MPW-Precheck
+        run: |
+          export INPUT_DIRECTORY=$(pwd)
+          export PRECHECK_ROOT=$INPUT_DIRECTORY/mpw_precheck
+          export OUTPUT_DIRECTORY=$INPUT_DIRECTORY/mpw_precheck_result
+          export OUTPUT=$OUTPUT_DIRECTORY/logs/precheck.log
+          export PDKPATH=$PDK_ROOT/sky130A
+
+          git clone --depth=1 -b mpw-5b https://github.com/efabless/mpw_precheck.git
+
+          docker run -v "$PRECHECK_ROOT":"$PRECHECK_ROOT" -v "$INPUT_DIRECTORY":"$INPUT_DIRECTORY" -v "${{ env.PDK_ROOT }}":"${{ env.PDK_ROOT }}" -e INPUT_DIRECTORY="$INPUT_DIRECTORY" -e PDK_ROOT="${{ env.PDK_ROOT }}" -e PDKPATH="${{ env.PDKPATH }}" -u $(id -u "$USER"):$(id -g "$USER") efabless/mpw_precheck:latest bash -c "cd $PRECHECK_ROOT; python3 mpw_precheck.py --input_directory $INPUT_DIRECTORY --pdk_root ${{ env.PDK_ROOT }} --output_directory $OUTPUT_DIRECTORY license makefile consistency xor magic_drc klayout_beol klayout_feol klayout_met_min_ca_density klayout_offgrid klayout_pin_label_purposes_overlapping_drawing klayout_zeroarea"
+
+          cnt=$(grep -c "All Checks Passed" "$OUTPUT")
+          if ! [[ $cnt ]]; then cnt=0; fi
+          if [[ $cnt -eq 1 ]]; then exit 0; fi
+          exit 2
+      - name: upload failure logs
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: mpw_precheck.error
+          path: |
+            ${{ github.workspace }}/mpw_precheck_result/logs/*
+
+  gl_tests:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        task: [
+          "jtag",
+          #"minimal",
+          #"uart",
+          #"memory_test",
+          #"spi_flash",
+          #"simplebus_minimal",
+          #"simplebus_micropython",
+        ]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Create environment variables
+        run: |
+          echo "PDK_ROOT=/home/runner/work/pdk" >> $GITHUB_ENV
+          echo "PDK=sky130A" >> $GITHUB_ENV
+          echo "OPENLANE_ROOT=/home/runner/work/caravel_user_project/openlane" >> $GITHUB_ENV
+
+      - name: Install packages
+        run: |
+          sudo apt-get -y install iverilog gcc-powerpc64le-linux-gnu
+
+      - name: Install dependencies
+        run: |
+          sudo mkdir -p ${{ env.PDK_ROOT }}
+          sudo chown -R $USER:$USER ${{ env.PDK_ROOT }}
+          make install
+          make install_mcw
+          make openlane
+          make pdk-with-volare
+
+      - name: Run test
+        run: |
+          cd verilog/dv/microwatt/${{ matrix.task }}
+          make SIM=GL

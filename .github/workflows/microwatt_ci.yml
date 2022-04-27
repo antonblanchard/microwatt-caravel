@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 0 * * 5'
+  workflow_dispatch:
+
+jobs:
+  # We can tape out the multiply_add_64x64 and Microwatt_FP_DFFRFile macros
+  # within github runner CPU and memory limits, but not user_project_wrapper.
+  partial_tape_out:
+    timeout-minutes: 180
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        task: [
+          "multiply_add_64x64",
+          "Microwatt_FP_DFFRFile",
+        ]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Create environment variables
+        run: |
+          echo "PDK_ROOT=/home/runner/work/pdk" >> $GITHUB_ENV
+          echo "PDK=sky130A" >> $GITHUB_ENV
+          echo "OPENLANE_ROOT=/home/runner/work/caravel_user_project/openlane" >> $GITHUB_ENV
+
+      - name: Install dependencies
+        run: |
+          sudo mkdir -p ${{ env.PDK_ROOT }}
+          sudo chown -R $USER:$USER ${{ env.PDK_ROOT }}
+          make install
+          make openlane
+          make pdk-with-volare
+
+      - name: Harden using Openlane
+        run: |
+          make ${{ matrix.task }}
+
+      - name: upload failure logs
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.task }}.error
+          path: |
+            ${{ github.workspace }}/openlane/${{ matrix.task }}/runs/${{ matrix.task }}/reports/signoff
+
+  rtl_tests:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        task: [
+          "jtag",
+          "minimal",
+          "uart",
+          "memory_test",
+          "spi_flash",
+          "simplebus_minimal",
+          #"simplebus_micropython",
+        ]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Create environment variables
+        run: |
+          echo "PDK_ROOT=/home/runner/work/pdk" >> $GITHUB_ENV
+          echo "PDK=sky130A" >> $GITHUB_ENV
+          echo "OPENLANE_ROOT=/home/runner/work/caravel_user_project/openlane" >> $GITHUB_ENV
+
+      - name: Install packages
+        run: |
+          sudo apt-get -y install iverilog gcc-powerpc64le-linux-gnu
+
+      - name: Install dependencies
+        run: |
+          sudo mkdir -p ${{ env.PDK_ROOT }}
+          sudo chown -R $USER:$USER ${{ env.PDK_ROOT }}
+          make install
+          make install_mcw
+          make openlane
+          make pdk-with-volare
+
+      - name: Run test
+        run: |
+          cd verilog/dv/microwatt/${{ matrix.task }}
+          make
