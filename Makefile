@@ -28,7 +28,7 @@ export MISMATCHES_OK=1
 export PDKPATH?=$(PDK_ROOT)/sky130A
 
 # Install lite version of caravel, (1): caravel-lite, (0): caravel
-CARAVEL_LITE?=1
+CARAVEL_LITE?=0
 
 MPW_TAG ?= mpw-6b
 
@@ -38,8 +38,8 @@ ifeq ($(CARAVEL_LITE),1)
 	CARAVEL_TAG := $(MPW_TAG)
 else
 	CARAVEL_NAME := caravel
-	CARAVEL_REPO := https://github.com/efabless/caravel
-	CARAVEL_TAG := $(MPW_TAG)
+	CARAVEL_REPO := https://github.com/antonblanchard/caravel
+	CARAVEL_TAG := microwatt-20220427
 endif
 
 # Include Caravel Makefile Targets
