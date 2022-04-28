@@ -29,7 +29,6 @@ module spi_flash;
 	reg clock;
 	reg RSTB;
 	reg microwatt_reset;
-	reg CSB;
 	reg power1, power2;
 	reg power3, power4;
 
@@ -56,7 +55,7 @@ module spi_flash;
 	assign uart_tx = mprj_io[6];
 	assign mprj_io[5] = 1'b1;
 
-	assign mprj_io[3] = (CSB == 1'b1) ? 1'b1 : 1'bz;
+	assign mprj_io[3] = 1'b1;  // Force CSB high.
 
 	// 100 MHz clock
 	always #5 clock <= (clock === 1'b0);
@@ -78,7 +77,6 @@ module spi_flash;
 
 	initial begin
 		RSTB <= 1'b0;
-		CSB  <= 1'b1;		// Force CSB high
 		microwatt_reset <= 1'b1;
 		#1000;
 		microwatt_reset <= 1'b0;

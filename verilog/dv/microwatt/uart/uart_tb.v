@@ -87,7 +87,6 @@ module uart_tb;
 	reg clock;
 	reg RSTB;
 	reg microwatt_reset;
-	reg CSB;
 	reg power1, power2;
 	reg power3, power4;
 	reg uart_rx;
@@ -115,7 +114,7 @@ module uart_tb;
 	assign uart_tx = mprj_io[6];
 	assign mprj_io[5] = uart_rx;
 
-	assign mprj_io[3] = (CSB == 1'b1) ? 1'b1 : 1'bz;
+	assign mprj_io[3] = 1'b1;  // Force CSB high.
 
 	// 100 MHz clock
 	always #5 clock <= (clock === 1'b0);
@@ -136,7 +135,6 @@ module uart_tb;
 
 	initial begin
 		RSTB <= 1'b0;
-		CSB  <= 1'b1;		// Force CSB high
 		microwatt_reset <= 1'b1;
 		#1000;
 		microwatt_reset <= 1'b0;

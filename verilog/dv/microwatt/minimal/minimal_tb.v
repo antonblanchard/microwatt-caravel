@@ -28,7 +28,6 @@ module minimal;
 	reg clock;
 	reg RSTB;
 	reg microwatt_reset;
-	reg CSB;
 	reg power1, power2;
 	reg power3, power4;
 
@@ -51,7 +50,7 @@ module minimal;
 
 	assign checkbits = mprj_io[31:16];
 
-	assign mprj_io[3] = (CSB == 1'b1) ? 1'b1 : 1'bz;
+	assign mprj_io[3] = 1'b1;  // Force CSB high.
 
 	// tie uart RX high
 	assign mprj_io[5] = 1;
@@ -84,7 +83,6 @@ module minimal;
 
 	initial begin
 		RSTB <= 1'b0;
-		CSB  <= 1'b1;		// Force CSB high
 		microwatt_reset <= 1'b1;
 		#2000;
 		// Keep the management engine in reset

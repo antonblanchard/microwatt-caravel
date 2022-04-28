@@ -182,7 +182,6 @@ module simplebus_minimal_tb;
 	reg clock;
 	reg RSTB;
 	reg microwatt_reset;
-	reg CSB;
 	reg power1, power2;
 	reg power3, power4;
 
@@ -211,7 +210,7 @@ module simplebus_minimal_tb;
 
 	assign checkbits = mprj_io[17:16];
 
-	assign mprj_io[3] = (CSB == 1'b1) ? 1'b1 : 1'bz;
+	assign mprj_io[3] = 1'b1;  // Force CSB high.
 
 	// tie uart RX high
 	assign mprj_io[5] = 1;
@@ -248,7 +247,6 @@ module simplebus_minimal_tb;
 
 	initial begin
 		RSTB <= 1'b0;
-		CSB  <= 1'b1;		// Force CSB high
 		microwatt_reset <= 1'b1;
 		#2000;
 		// Would prefer to keep the management engine in reset
