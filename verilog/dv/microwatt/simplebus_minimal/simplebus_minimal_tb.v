@@ -187,7 +187,7 @@ module simplebus_minimal_tb;
 
 	wire gpio;
 	wire [37:0] mprj_io;
-	wire [1:0] checkbits;
+	wire checkbit;
 	wire user_flash_csb;
 	wire user_flash_clk;
 	inout user_flash_io0;
@@ -208,7 +208,7 @@ module simplebus_minimal_tb;
 	assign user_flash_io0 = mprj_io[10];
 	assign mprj_io[11] = user_flash_io1;
 
-	assign checkbits = mprj_io[17:16];
+	assign checkbit = mprj_io[37];
 
 	assign mprj_io[3] = 1'b1;  // Force CSB high.
 
@@ -237,7 +237,10 @@ module simplebus_minimal_tb;
 
 		$display("Microwatt external bus minimal test");
 
-		repeat (1000000) begin
+		// We've only got 1 bit of status from the test case, and
+		// failure gets fed back as a timeout, so set this somewhat
+		// close to how long a successful run should take.
+		repeat (40000) begin
 			@(posedge clock);
 		end
 
@@ -249,7 +252,7 @@ module simplebus_minimal_tb;
 		RSTB <= 1'b0;
 		microwatt_reset <= 1'b1;
 		#2000;
-		// Would prefer to keep the management engine in reset
+		// Keep the management engine in reset
 		//RSTB <= 1'b1;
 		//#500;
 		microwatt_reset <= 1'b0;
@@ -273,18 +276,12 @@ module simplebus_minimal_tb;
 		power4 <= 1'b1;
 	end
 
-	//initial begin
-		//wait(checkbits == 2'h1);
-		//$display("Management engine started");
-
-		//wait(checkbits == 2'h2);
-		//$display("Microwatt alive!");
-
-		//// Wait for Microwatt to respond with success
-		//wait(checkbits == 2'h3);
-		//$display("Success!");
-		//$finish;
-	//end
+	initial begin
+		// Wait for Microwatt to respond with success
+		wait(checkbit == 1'h1);
+		$display("Success!");
+		$finish;
+	end
 
 	wire VDD3V3 = power1;
 	wire VDD1V8 = power2;

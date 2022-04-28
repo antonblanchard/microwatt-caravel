@@ -19,11 +19,13 @@ int main(void)
 	*p = 0xACEACEACEACEACEA;
 	__asm__ __volatile__("");
 
-	if (*q == 0x0102030405060708)
-		microwatt_success();
-	else
-		microwatt_failure();
+	if (*q == 0x0102030405060708) {
+		writel(0x00040000, GPIO_REG_DIR);
+		writel(0x00040000, GPIO_REG_OUT);
+	}
 
+	// We only have 1 spare pin to communicate status, so
+	// failure is represented by a timeout.
 	while (1)
 		/* Do Nothing */ ;
 }
