@@ -22,8 +22,8 @@ microwatt.hex: microwatt.elf
 %.vvp: %_tb.v microwatt.hex check-env
 ifeq ($(SIM),RTL)
 	iverilog $(SIM_DEFINES) -I $(PDK_PATH) \
-	-I $(CARAVEL_BEHAVIOURAL_MODELS) -I $(CARAVEL_RTL_PATH) \
-	-I $(UPRJ_BEHAVIOURAL_MODELS) -I $(UPRJ_RTL_PATH) \
+	-I $(CARAVEL_BEHAVIOURAL_MODELS) -I $(CARAVEL_RTL_PATH) -I $(CARAVEL_VERILOG_PATH) \
+	-I $(UPRJ_BEHAVIOURAL_MODELS) -I $(UPRJ_RTL_PATH) -I $(UPRJ_VERILOG_PATH) \
 	-I $(CARAVEL_MGMT_RTL_PATH) \
 	$< -o $@ 
 else
