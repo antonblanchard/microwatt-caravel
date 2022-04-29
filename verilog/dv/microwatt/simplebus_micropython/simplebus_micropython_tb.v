@@ -287,8 +287,8 @@ module simplebus_micropython_tb;
 	end
 
 	initial begin
-		$dumpfile("simplebus_micropython.vcd");
-		$dumpvars(0, simplebus_micropython_tb);
+		//$dumpfile("simplebus_micropython.vcd");
+		//$dumpvars(0, simplebus_micropython_tb);
 
 		$display("Microwatt external bus minimal test");
 

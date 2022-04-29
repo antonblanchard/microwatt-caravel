@@ -124,8 +124,8 @@ module uart_tb;
 	end
 
 	initial begin
-		$dumpfile("uart.vcd");
-		$dumpvars(0, uart_tb);
+		//$dumpfile("uart.vcd");
+		//$dumpvars(0, uart_tb);
 
 		$display("Microwatt UART rx -> tx test");
 

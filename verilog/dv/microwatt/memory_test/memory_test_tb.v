@@ -65,8 +65,8 @@ module memory_test;
 	end
 
 	initial begin
-		$dumpfile("memory_test.vcd");
-		$dumpvars(0, memory_test);
+		//$dumpfile("memory_test.vcd");
+		//$dumpvars(0, memory_test);
 
 		$display("Microwatt memory test");
 

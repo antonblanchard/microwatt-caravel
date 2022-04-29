@@ -66,8 +66,8 @@ module minimal;
 	end
 
 	initial begin
-		$dumpfile("minimal.vcd");
-		$dumpvars(0, minimal);
+		//$dumpfile("minimal.vcd");
+		//$dumpvars(0, minimal);
 
 		$display("Microwatt minimal test");
 

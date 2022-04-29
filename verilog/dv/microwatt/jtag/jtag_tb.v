@@ -109,8 +109,8 @@ module jtag_tb;
 	end
 
 	initial begin
-		$dumpfile("jtag.vcd");
-		$dumpvars(0, jtag_tb);
+		//$dumpfile("jtag.vcd");
+		//$dumpvars(0, jtag_tb);
 
 		$display("Microwatt JTAG IDCODE test");
 

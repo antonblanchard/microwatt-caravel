@@ -232,8 +232,8 @@ module simplebus_minimal_tb;
 	end
 
 	initial begin
-		$dumpfile("simplebus_minimal.vcd");
-		$dumpvars(0, simplebus_minimal_tb);
+		//$dumpfile("simplebus_minimal.vcd");
+		//$dumpvars(0, simplebus_minimal_tb);
 
 		$display("Microwatt external bus minimal test");
 

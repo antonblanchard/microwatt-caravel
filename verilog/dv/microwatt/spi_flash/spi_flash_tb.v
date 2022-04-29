@@ -65,8 +65,8 @@ module spi_flash;
 	end
 
 	initial begin
-		$dumpfile("spi_flash.vcd");
-		$dumpvars(0, spi_flash);
+		//$dumpfile("spi_flash.vcd");
+		//$dumpvars(0, spi_flash);
 
 		$display("Microwatt SPI flash test");
 
