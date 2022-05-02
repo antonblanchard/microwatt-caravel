@@ -102,5 +102,12 @@ jobs:
 
       - name: Run test
         run: |
+          # We don't have enough memory to run a complete gate level sim, so
+          # do a partial gate sim of microwatt only
+          echo '`include "gl/user_project_wrapper.v"' > verilog/rtl/uprj_netlists.v
+          echo '`include "gl/Microwatt_FP_DFFRFile.v"' >> verilog/rtl/uprj_netlists.v
+          echo '`include "gl/multiply_add_64x64.v"' >> verilog/rtl/uprj_netlists.v
+          echo '`include "gl/RAM32_1RW1R.v"' >> verilog/rtl/uprj_netlists.v
+          echo '`include "gl/RAM512.v"' >> verilog/rtl/uprj_netlists.v
           cd verilog/dv/microwatt/${{ matrix.task }}
-          make SIM=GL
+          make
