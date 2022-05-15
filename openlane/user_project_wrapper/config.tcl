@@ -49,7 +49,12 @@ set ::env(CLOCK_PERIOD) "30"
 ## Internal Macros
 ### Macro PDN Connections
 set ::env(FP_PDN_MACRO_HOOKS) "\
-	mprj vccd1 vssd1"
+	microwatt_0.soc0.bram.bram0.ram_0.memory_0				vccd1 vssd1, \
+	microwatt_0.soc0.processor.dcache_0.rams:1.way.cache_ram_0		vccd1 vssd1, \
+	microwatt_0.soc0.processor.icache_0.rams:1.way.cache_ram_0		vccd1 vssd1, \
+	microwatt_0.soc0.processor.execute1_0.multiply_0.multiplier		vccd1 vssd1, \
+	microwatt_0.soc0.processor.with_fpu.fpu_0.fpu_multiply_0.multiplier	vccd1 vssd1, \
+	microwatt_0.soc0.processor.register_file_0.register_file_0		vccd1 vssd1"
 
 ### Macro Placement
 set ::env(MACRO_PLACEMENT_CFG) $script_dir/macro.cfg
