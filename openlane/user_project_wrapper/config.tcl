@@ -102,9 +102,7 @@ set ::env(FP_PDN_VERTICAL_HALO) 10
 # Placement tuning
 set ::env(PL_TARGET_DENSITY) 0.25
 set ::env(PL_RESIZER_HOLD_SLACK_MARGIN) "0.3"
-# Disable until the routability fixes go upstream
-#set ::env(PL_ROUTABILITY_DRIVEN) 1
-set ::env(PL_TIME_DRIVEN) 1
+
 set ::env(CELL_PAD) 6
 
 # Global routing tuning
