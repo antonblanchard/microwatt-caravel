@@ -8,6 +8,7 @@ set ::env(VERILOG_FILES) "\
 set ::env(CLOCK_PORT) "CLK"
 set ::env(CLOCK_PERIOD) "10"
 set ::env(CLOCK_NET) $::env(CLOCK_PORT)
+set ::env(BASE_SDC_FILE) $script_dir/base.sdc
 
 set ::env(FP_SIZING) absolute
 set ::env(DIE_AREA) "0 0 1150 1150"
