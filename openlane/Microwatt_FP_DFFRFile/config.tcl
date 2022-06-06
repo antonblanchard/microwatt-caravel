@@ -48,9 +48,6 @@ set ::env(SYNTH_MAX_FANOUT) {10}
 # Placement tuning
 set ::env(PL_TARGET_DENSITY) 0.33
 set ::env(PL_RESIZER_HOLD_SLACK_MARGIN) "0.2"
-# Disable until the routability fixes go upstream
-#set ::env(PL_ROUTABILITY_DRIVEN) 1
-set ::env(PL_TIME_DRIVEN) 1
 
 # CTS tuning
 set ::env(CTS_CLK_BUFFER_LIST) {sky130_fd_sc_hd__clkbuf_8 sky130_fd_sc_hd__clkbuf_4 sky130_fd_sc_hd__clkbuf_2};
