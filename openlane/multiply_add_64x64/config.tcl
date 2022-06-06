@@ -6,7 +6,7 @@ set ::env(VERILOG_FILES) "\
 	$script_dir/src/multiply_add_64x64.v"
 
 set ::env(CLOCK_PORT) "clk"
-set ::env(CLOCK_PERIOD) "7"
+set ::env(CLOCK_PERIOD) "10"
 set ::env(CLOCK_NET) $::env(CLOCK_PORT)
 
 set ::env(FP_SIZING) absolute
@@ -21,7 +21,7 @@ set ::env(RT_MAX_LAYER) "met4"
 set ::env(FP_PIN_ORDER_CFG) $script_dir/pin_order.cfg
 
 # Macro input/output delay - must match liberty file
-set ::env(IO_PCT) 0.2
+set ::env(IO_PCT) 0.4
 
 # Because the macro uses standard cells
 set ::env(SYNTH_READ_BLACKBOX_LIB) 1
