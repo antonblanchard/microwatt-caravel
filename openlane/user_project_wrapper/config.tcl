@@ -44,7 +44,7 @@ set ::env(CLOCK_NET) $::env(CLOCK_PORT)
 set ::env(BASE_SDC_FILE) $script_dir/base.sdc
  
 # Speed up?
-set ::env(CLOCK_PERIOD) "30"
+set ::env(CLOCK_PERIOD) "20"
 
 ## Internal Macros
 ### Macro PDN Connections
