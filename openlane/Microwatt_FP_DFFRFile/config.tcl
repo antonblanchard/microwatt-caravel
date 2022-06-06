@@ -6,7 +6,7 @@ set ::env(VERILOG_FILES) "\
 	$script_dir/../../verilog/rtl/Microwatt_FP_DFFRFile.v"
 
 set ::env(CLOCK_PORT) "CLK"
-set ::env(CLOCK_PERIOD) "8"
+set ::env(CLOCK_PERIOD) "10"
 set ::env(CLOCK_NET) $::env(CLOCK_PORT)
 
 set ::env(FP_SIZING) absolute
@@ -21,7 +21,7 @@ set ::env(RT_MAX_LAYER) "met4"
 set ::env(FP_PIN_ORDER_CFG) $script_dir/pin_order.cfg
 
 # Macro input/output delay - must match liberty file
-set ::env(IO_PCT) 0.2
+set ::env(IO_PCT) 0.3
 
 # Handle PDN
 set ::env(VDD_NETS) [list {VPWR} ]
