@@ -63,6 +63,7 @@ jobs:
           "minimal",
           "uart",
           "memory_test",
+          "multiplier",
           "spi_flash",
           "simplebus_minimal",
           #"simplebus_micropython",
