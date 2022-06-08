@@ -30,6 +30,9 @@ set script_dir [file dirname [file normalize [info script]]]
 set ::env(DESIGN_NAME) user_project_wrapper
 #section end
 
+set ::env(FP_PDN_CORE_RING_VOFFSET) 12.45
+set ::env(FP_PDN_CORE_RING_HOFFSET) 12.45
+
 # User Configurations
 
 ## Source Verilog Files
