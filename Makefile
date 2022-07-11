@@ -41,7 +41,7 @@ ifeq ($(CARAVEL_LITE),1)
 else
 	CARAVEL_NAME := caravel
 	CARAVEL_REPO := https://github.com/antonblanchard/caravel
-	CARAVEL_TAG := microwatt-20220427
+	CARAVEL_TAG := microwatt-20220711
 endif
 
 # Include Caravel Makefile Targets
