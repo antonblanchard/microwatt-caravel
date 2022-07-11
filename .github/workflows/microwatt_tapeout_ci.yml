@@ -20,6 +20,7 @@ jobs:
 
       - name: Create environment variables
         run: |
+          echo "PDK=sky130B" >> $GITHUB_ENV
           echo "PDK_ROOT=/home/runner/work/pdk" >> $GITHUB_ENV
           echo "PDK=sky130A" >> $GITHUB_ENV
           echo "OPENLANE_ROOT=/home/runner/work/caravel_user_project/openlane" >> $GITHUB_ENV
@@ -78,6 +79,7 @@ jobs:
 
       - name: Create environment variables
         run: |
+          echo "PDK=sky130B" >> $GITHUB_ENV
           echo "PDK_ROOT=/home/runner/work/pdk" >> $GITHUB_ENV
           echo "PDK=sky130A" >> $GITHUB_ENV
           echo "OPENLANE_ROOT=/home/runner/work/caravel_user_project/openlane" >> $GITHUB_ENV
