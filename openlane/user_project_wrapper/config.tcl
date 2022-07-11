@@ -16,14 +16,14 @@
 # Base Configurations. Don't Touch
 # section begin
 
-set ::env(PDK) "sky130A"
+set ::env(PDK) $::env(PDK)
 set ::env(STD_CELL_LIBRARY) "sky130_fd_sc_hd"
 
-# YOU ARE NOT ALLOWED TO CHANGE ANY VARIABLES DEFINED IN THE FIXED WRAPPER CFGS
-source $::env(CARAVEL_ROOT)/openlane/user_project_wrapper/fixed_wrapper_cfgs.tcl
+# YOU ARE NOT ALLOWED TO CHANGE ANY VARIABLES DEFINED IN THE FIXED WRAPPER CFGS 
+source $::env(DESIGN_DIR)/fixed_dont_change/fixed_wrapper_cfgs.tcl
 
 # YOU CAN CHANGE ANY VARIABLES DEFINED IN THE DEFAULT WRAPPER CFGS BY OVERRIDING THEM IN THIS CONFIG.TCL
-source $::env(CARAVEL_ROOT)/openlane/user_project_wrapper/default_wrapper_cfgs.tcl
+source $::env(DESIGN_DIR)/fixed_dont_change/default_wrapper_cfgs.tcl
 
 set script_dir [file dirname [file normalize [info script]]]
 
@@ -52,12 +52,12 @@ set ::env(CLOCK_PERIOD) "20"
 ## Internal Macros
 ### Macro PDN Connections
 set ::env(FP_PDN_MACRO_HOOKS) "\
-	microwatt_0.soc0.bram.bram0.ram_0.memory_0				vccd1 vssd1, \
-	microwatt_0.soc0.processor.dcache_0.rams:1.way.cache_ram_0		vccd1 vssd1, \
-	microwatt_0.soc0.processor.icache_0.rams:1.way.cache_ram_0		vccd1 vssd1, \
-	microwatt_0.soc0.processor.execute1_0.multiply_0.multiplier		vccd1 vssd1, \
-	microwatt_0.soc0.processor.with_fpu.fpu_0.fpu_multiply_0.multiplier	vccd1 vssd1, \
-	microwatt_0.soc0.processor.register_file_0.register_file_0		vccd1 vssd1"
+	microwatt_0.soc0.bram.bram0.ram_0.memory_0				vccd1 vssd1 VPWR VGND, \
+	microwatt_0.soc0.processor.dcache_0.rams:1.way.cache_ram_0		vccd1 vssd1 VPWR VGND, \
+	microwatt_0.soc0.processor.icache_0.rams:1.way.cache_ram_0		vccd1 vssd1 VPWR VGND, \
+	microwatt_0.soc0.processor.execute1_0.multiply_0.multiplier		vccd1 vssd1 VPWR VGND, \
+	microwatt_0.soc0.processor.with_fpu.fpu_0.fpu_multiply_0.multiplier	vccd1 vssd1 VPWR VGND, \
+	microwatt_0.soc0.processor.register_file_0.register_file_0		vccd1 vssd1 VPWR VGND"
 
 ### Macro Placement
 set ::env(MACRO_PLACEMENT_CFG) $script_dir/macro.cfg
