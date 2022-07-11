@@ -43,6 +43,13 @@ docker_env = \
 	-e CARAVEL_ROOT=$(CARAVEL_ROOT) \
 	-e OPENLANE_RUN_TAG=$(OPENLANE_RUN_TAG)
 
+IS_PODMAN := $(shell docker run --rm $(OPENLANE_IMAGE_NAME) sh -c "test -f /run/.containerenv && echo 1 || echo 0")
+ifeq ($(IS_PODMAN),0)
+  docker_user_options := -u $(shell id -u $(USER)):$(shell id -g $(USER))
+else
+  docker_user_options :=
+endif
+
 ifneq ($(MCW_ROOT),)
 docker_env += -e MCW_ROOT=$(MCW_ROOT)
 docker_mounts += -v $(MCW_ROOT):$(MCW_ROOT)
@@ -53,7 +60,7 @@ docker_run = \
 	docker run $(docker_startup_mode) \
 	$(docker_mounts) \
 	$(docker_env) \
-	-u $(shell id -u $(USER)):$(shell id -g $(USER))
+	$(docker_user_options)
 
 list:
 	@echo $(designs)
