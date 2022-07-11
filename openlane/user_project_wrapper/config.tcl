@@ -101,7 +101,7 @@ set ::env(FP_PDN_VERTICAL_HALO) 10
 
 # Placement tuning
 set ::env(PL_TARGET_DENSITY) 0.25
-set ::env(PL_RESIZER_HOLD_SLACK_MARGIN) "0.3"
+set ::env(PL_RESIZER_HOLD_SLACK_MARGIN) "0.4"
 
 set ::env(CELL_PAD) 6
 
