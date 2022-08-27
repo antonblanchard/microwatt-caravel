@@ -1,4 +1,4 @@
-set script_dir [file dirname [file normalize [info script]]]
+set script_dir $::env(DESIGN_DIR)
 
 set ::env(DESIGN_NAME) Microwatt_FP_DFFRFile
 
@@ -11,7 +11,7 @@ set ::env(CLOCK_NET) $::env(CLOCK_PORT)
 set ::env(BASE_SDC_FILE) $script_dir/base.sdc
 
 set ::env(FP_SIZING) absolute
-set ::env(DIE_AREA) "0 0 1150 1150"
+set ::env(DIE_AREA) "0 0 700 700"
 
 # Settings for macros
 set ::env(DESIGN_IS_CORE) 0
@@ -47,8 +47,7 @@ set ::env(SYNTH_STRATEGY) {DELAY 4}
 set ::env(SYNTH_MAX_FANOUT) {10}
 
 # Placement tuning
-set ::env(PL_TARGET_DENSITY) 0.33
-set ::env(PL_RESIZER_HOLD_SLACK_MARGIN) "0.2"
+set ::env(PL_TARGET_DENSITY) 0.68
 
 # CTS tuning
 set ::env(CTS_CLK_BUFFER_LIST) {sky130_fd_sc_hd__clkbuf_8 sky130_fd_sc_hd__clkbuf_4 sky130_fd_sc_hd__clkbuf_2};
@@ -63,3 +62,7 @@ if {[catch {exec nproc} result] == 0} {
 } else {
 	set ::env(ROUTING_CORES) 4
 }
+
+set ::env(GPL_CELL_PADDING) 2
+set ::env(DPL_CELL_PADDING) 0
+set ::env(DIODE_PADDING) 0

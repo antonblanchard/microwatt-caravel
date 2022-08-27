@@ -74,9 +74,9 @@ multiplier_l =     (align_h(horizontal_margin),                                 
 multiplier_fpu_l = (align_h(horizontal_margin),                                           align_v(ram_l[Y]-multiply_add_64x64[Y]-300))
 regfile_l =        (align_h_down(die_size[X]-microwatt_fp_dffrfile[X]-horizontal_margin), align_v(middle_y - microwatt_fp_dffrfile[Y]/2))
 
-print('microwatt_0.soc0.bram.bram0.ram_0.memory_0                 %8.3f %8.3f N' % ram_l)
-print('microwatt_0.soc0.processor.dcache_0.rams:1.way.cache_ram_0 %8.3f %8.3f N' % icache_ram_1_l)
-print('microwatt_0.soc0.processor.icache_0.rams:1.way.cache_ram_0 %8.3f %8.3f N' % dcache_ram_1_l)
+print('microwatt_0.soc0.bram_bram0.ram_0.memory_0                  %8.3f %8.3f N' % ram_l)
+print('microwatt_0.soc0.processor.dcache_0.rams_n1_way.cache_ram_0 %8.3f %8.3f N' % icache_ram_1_l)
+print('microwatt_0.soc0.processor.icache_0.rams_n1_way.cache_ram_0 %8.3f %8.3f N' % dcache_ram_1_l)
 print('microwatt_0.soc0.processor.execute1_0.multiply_0.multiplier %8.3f %8.3f N' % multiplier_l)
-print('microwatt_0.soc0.processor.with_fpu.fpu_0.fpu_multiply_0.multiplier %8.3f %8.3f N' % multiplier_fpu_l)
+print('microwatt_0.soc0.processor.with_fpu_fpu_0.fpu_multiply_0.multiplier %8.3f %8.3f N' % multiplier_fpu_l)
 print('microwatt_0.soc0.processor.register_file_0.register_file_0  %8.3f %8.3f N' % regfile_l)

@@ -25,7 +25,7 @@ source $::env(DESIGN_DIR)/fixed_dont_change/fixed_wrapper_cfgs.tcl
 # YOU CAN CHANGE ANY VARIABLES DEFINED IN THE DEFAULT WRAPPER CFGS BY OVERRIDING THEM IN THIS CONFIG.TCL
 source $::env(DESIGN_DIR)/fixed_dont_change/default_wrapper_cfgs.tcl
 
-set script_dir [file dirname [file normalize [info script]]]
+set script_dir $::env(DESIGN_DIR)
 
 set ::env(DESIGN_NAME) user_project_wrapper
 #section end
@@ -101,12 +101,10 @@ set ::env(FP_PDN_VERTICAL_HALO) 10
 
 # Placement tuning
 set ::env(PL_TARGET_DENSITY) 0.25
-set ::env(PL_RESIZER_HOLD_SLACK_MARGIN) "0.4"
-
-set ::env(CELL_PAD) 6
+set ::env(PL_RESIZER_HOLD_SLACK_MARGIN) "0.2"
 
 # Global routing tuning
-set ::env(GLB_RT_ADJUSTMENT) 0.2
+set ::env(GRT_ADJUSTMENT) 0.2
 
 # CTS tuning
 set ::env(CTS_CLK_BUFFER_LIST) {sky130_fd_sc_hd__clkbuf_8 sky130_fd_sc_hd__clkbuf_4 sky130_fd_sc_hd__clkbuf_2};
@@ -123,4 +121,12 @@ if {[catch {exec nproc} result] == 0} {
 	set ::env(ROUTING_CORES) 24
 }
 
-set ::env(DIODE_INSERTION_STRATEGY) 0
+# Until we sort out the antenna repair issues, just do a single pass
+set ::env(GRT_ANT_ITERS) 1
+
+# For debugging
+###set ::env(SYNTH_NO_FLAT) 1
+
+set ::env(GPL_CELL_PADDING) 2
+set ::env(DPL_CELL_PADDING) 0
+set ::env(DIODE_PADDING) 0
