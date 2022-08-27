@@ -21,7 +21,7 @@ MCW_ROOT?=$(PWD)/mgmt_core_wrapper
 SIM?=RTL
 
 export SKYWATER_COMMIT=f70d8ca46961ff92719d8870a18a076370b85f6c
-export OPEN_PDKS_COMMIT?=466cc9132cecc17112ae8069ec2ae8bf4ab4ce7a
+export OPEN_PDKS_COMMIT?=e8294524e5f67c533c5d0c3afa0bcc5b2a5fa066
 export OPENLANE_TAG=2022.08.17
 
 # Install lite version of caravel, (1): caravel-lite, (0): caravel
