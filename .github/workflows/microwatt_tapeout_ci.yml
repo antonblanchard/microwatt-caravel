@@ -22,7 +22,6 @@ jobs:
         run: |
           echo "PDK=sky130B" >> $GITHUB_ENV
           echo "PDK_ROOT=/home/runner/work/pdk" >> $GITHUB_ENV
-          echo "PDK=sky130A" >> $GITHUB_ENV
           echo "OPENLANE_ROOT=/home/runner/work/caravel_user_project/openlane" >> $GITHUB_ENV
 
       - name: Install dependencies
@@ -39,7 +38,7 @@ jobs:
           export PRECHECK_ROOT=$INPUT_DIRECTORY/mpw_precheck
           export OUTPUT_DIRECTORY=$INPUT_DIRECTORY/mpw_precheck_result
           export OUTPUT=$OUTPUT_DIRECTORY/logs/precheck.log
-          export PDKPATH=$PDK_ROOT/sky130A
+          export PDKPATH=$PDK_ROOT/sky130B
 
           git clone --depth=1 -b mpw-5b https://github.com/efabless/mpw_precheck.git
 
@@ -81,7 +80,6 @@ jobs:
         run: |
           echo "PDK=sky130B" >> $GITHUB_ENV
           echo "PDK_ROOT=/home/runner/work/pdk" >> $GITHUB_ENV
-          echo "PDK=sky130A" >> $GITHUB_ENV
           echo "OPENLANE_ROOT=/home/runner/work/caravel_user_project/openlane" >> $GITHUB_ENV
 
       - name: Install packages
