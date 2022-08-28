@@ -96,8 +96,10 @@ jobs:
           make openlane
           make pdk-with-volare
           .github/sram_no_verbose.sh
+          make __gpio_defaults
 
       - name: Run test
         run: |
           cd verilog/dv/microwatt/${{ matrix.task }}
           make SIM=GL
+
