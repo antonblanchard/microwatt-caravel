@@ -20,8 +20,8 @@ int main(void)
 	__asm__ __volatile__("");
 
 	if (*q == 0x0102030405060708) {
-		writel(0x00040000, GPIO_REG_DIR);
-		writel(0x00040000, GPIO_REG_OUT);
+		writel(0x00080000, GPIO_REG_DIR);
+		writel(0x00080000, GPIO_REG_OUT);
 	}
 
 	// We only have 1 spare pin to communicate status, so
