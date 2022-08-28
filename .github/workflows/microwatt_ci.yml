@@ -38,6 +38,7 @@ jobs:
           make install
           make openlane
           make pdk-with-volare
+          .github/sram_no_verbose.sh
 
       - name: Harden using Openlane
         run: |
@@ -90,6 +91,7 @@ jobs:
           make install_mcw
           make openlane
           make pdk-with-volare
+          .github/sram_no_verbose.sh
 
       - name: Run test
         run: |
