@@ -61,11 +61,11 @@ jobs:
       matrix:
         task: [
           "jtag",
-          "minimal",
-          "uart",
-          "memory_test",
-          "multiply",
-          "spi_flash",
+          #"minimal",
+          #"uart",
+          #"memory_test",
+          #"multiply",
+          #"spi_flash",
           "simplebus_minimal",
           #"simplebus_micropython",
         ]
