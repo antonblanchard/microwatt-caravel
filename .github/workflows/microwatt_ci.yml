@@ -94,6 +94,6 @@ jobs:
           .github/sram_no_verbose.sh
 
       - name: Run test
+        working-directory: verilog/dv/microwatt/${{ matrix.task }}
         run: |
-          cd verilog/dv/microwatt/${{ matrix.task }}
           make
