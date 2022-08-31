@@ -95,4 +95,4 @@ jobs:
 
       - name: Run test
         working-directory: verilog/dv/microwatt/${{ matrix.task }}
-        run: make
+        run: make && echo $?
