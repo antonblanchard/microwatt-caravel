@@ -19,6 +19,7 @@ microwatt.hex: microwatt.elf
 	# to fix flash base address
 	sed -i 's/@F000/@0000/g' $@
 
+.PRECIOUS: %.vvp
 %.vvp: %_tb.v microwatt.hex check-env
 ifeq ($(SIM),RTL)
 	iverilog $(SIM_DEFINES) -I $(PDK_PATH) \
@@ -34,6 +35,7 @@ else
 	$< -o $@ 
 endif
 
+.PRECIOUS: %.vcd
 %.vcd: %.vvp
 	vvp $<
 

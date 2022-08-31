@@ -12,7 +12,7 @@ jobs:
   # within github runner CPU and memory limits, but not user_project_wrapper.
   partial_tape_out:
     timeout-minutes: 180
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       max-parallel: 3
@@ -54,7 +54,7 @@ jobs:
 
   rtl_tests:
     timeout-minutes: 30
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: true
       max-parallel: 3
