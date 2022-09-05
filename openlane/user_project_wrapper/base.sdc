@@ -30,8 +30,55 @@ set_output_delay 10 -clock [get_clocks jtag_clk] -add_delay [get_ports {io_out[1
 set_input_delay 10 -clock [get_clocks jtag_clk] -add_delay [get_ports {io_in[13]}]
 set_input_delay 10 -clock [get_clocks jtag_clk] -add_delay [get_ports {io_in[15]}]
 set_clock_groups -name group1 -logically_exclusive \
- -group [get_clocks jtag_clk]\
- -group [get_clocks $::env(CLOCK_PORT)]
+    -group [get_clocks jtag_clk]\
+    -group [get_clocks $::env(CLOCK_PORT)]
+
+# GPIOs/external bus
+foreach i {0 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 36 37} {
+    set_input_delay $input_delay_value -clock [get_clocks $::env(CLOCK_PORT)] -add_delay [get_ports io_in[$i]]
+    set_output_delay $output_delay_value -clock [get_clocks $::env(CLOCK_PORT)] -add_delay [get_ports io_out[$i]]
+    set_output_delay $output_delay_value -clock [get_clocks $::env(CLOCK_PORT)] -add_delay [get_ports io_oeb[$i]]
+}
+
+# Alt reset
+set_input_delay $input_delay_value -clock [get_clocks $::env(CLOCK_PORT)] -add_delay [get_ports io_in[35]]
+
+# To avoid check_setup complaining about unused ports, add some arbitrary constraints
+
+# Unused bidirectional ports
+foreach i {analog_io*} {
+    set_input_delay 0.1 -clock [get_clocks $::env(CLOCK_PORT)] -add_delay [get_ports $i]
+    set_output_delay 0.1 -clock [get_clocks $::env(CLOCK_PORT)] -add_delay [get_ports $i]
+}
+
+# Unused output ports
+foreach i {la_data_out* user_irq* wbs_ack_o wbs_dat_o*} {
+    set_output_delay 0.1 -clock [get_clocks $::env(CLOCK_PORT)] -add_delay [get_ports $i]
+}
+
+# Unused input ports
+foreach i {la_data_in* la_oenb* wb_clk_i wb_rst_i wbs_stb_i wbs_cyc_i wbs_we_i wbs_sel_i* wbs_dat_i* wbs_adr_i*} {
+    set_input_delay 0.1 -clock [get_clocks $::env(CLOCK_PORT)] -add_delay [get_ports $i]
+}
+
+# Unused GPIOs
+foreach i {1 2 3 4} {
+    set_input_delay 0.1 -clock [get_clocks $::env(CLOCK_PORT)] -add_delay [get_ports io_in[$i]]
+    set_output_delay 0.1 -clock [get_clocks $::env(CLOCK_PORT)] -add_delay [get_ports io_out[$i]]
+    set_output_delay 0.1 -clock [get_clocks $::env(CLOCK_PORT)] -add_delay [get_ports io_oeb[$i]]
+}
+
+# Unused GPIO outputs
+foreach i {6 8 9 10 12} {
+    set_input_delay 0.1 -clock [get_clocks $::env(CLOCK_PORT)] -add_delay [get_ports io_in[$i]]
+    set_output_delay 0.1 -clock [get_clocks $::env(CLOCK_PORT)] -add_delay [get_ports io_oeb[$i]]
+}
+
+# Unused GPIO inputs
+foreach i {5 7 11 13 14 15 35} {
+    set_output_delay 0.1 -clock [get_clocks $::env(CLOCK_PORT)] -add_delay [get_ports io_out[$i]]
+    set_output_delay 0.1 -clock [get_clocks $::env(CLOCK_PORT)] -add_delay [get_ports io_oeb[$i]]
+}
 
 # TODO set this as parameter
 set_driving_cell -lib_cell $::env(SYNTH_DRIVING_CELL) -pin $::env(SYNTH_DRIVING_CELL_PIN) [all_inputs]
