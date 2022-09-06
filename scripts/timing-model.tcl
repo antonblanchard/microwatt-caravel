@@ -6,6 +6,6 @@ read_spef spef/$::env(MACRO).spef
 read_sdc scripts/timing-model.sdc
 set_propagated_clock [all_clocks]
 
-write_timing_model user_project_wrapper/lib/$:::env(MACRO).lib
+write_timing_model openlane/user_project_wrapper/$:::env(MACRO).lib
 
 exit
