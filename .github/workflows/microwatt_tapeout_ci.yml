@@ -22,7 +22,7 @@ jobs:
           #OPENLANE_ROOT: /home/runner/work/caravel_user_project/openlane
           PDK_ROOT: ${{ github.workspace }}/pdk
           PDKPATH: ${{ github.workspace }}/pdk/sky130B
-          OPENLANE_ROOT: ${{ github.workspace }}/openlane
+          OPENLANE_ROOT: ${{ github.workspace }}/Openlane
           INPUT_DIRECTORY: ${{ github.workspace }}
           PRECHECK_ROOT: ${{ github.workspace }}/mpw_precheck
           OUTPUT_DIRECTORY: ${{ github.workspace }}/mpw_precheck_result
