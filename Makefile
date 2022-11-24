@@ -21,7 +21,7 @@ export MCW_ROOT?=$(PWD)/mgmt_core_wrapper
 SIM?=RTL
 
 # Install lite version of caravel, (1): caravel-lite, (0): caravel
-CARAVEL_LITE?=0
+CARAVEL_LITE?=1
 
 # PDK switch varient
 export PDK?=sky130A
