@@ -21,16 +21,16 @@ microwatt.hex: microwatt.elf
 
 %.vvp: %_tb.v microwatt.hex check-env
 ifeq ($(SIM),RTL)
-	iverilog $(SIM_DEFINES) -I $(PDK_PATH) \
-	-I $(CARAVEL_BEHAVIOURAL_MODELS) -I $(CARAVEL_RTL_PATH) -I $(CARAVEL_VERILOG_PATH) \
-	-I $(UPRJ_BEHAVIOURAL_MODELS) -I $(UPRJ_RTL_PATH) -I $(UPRJ_VERILOG_PATH) \
-	-I $(CARAVEL_MGMT_RTL_PATH) \
+	iverilog $(SIM_DEFINES) \
+	-l$(USER_PROJECT_VERILOG)/rtl/user_defines.v \
+	-f$(VERILOG_PATH)/includes/includes.rtl.caravel \
+	-f$(USER_PROJECT_VERILOG)/includes/includes.rtl.caravel_user_project \
 	$< -o $@ 
 else
-	iverilog $(SIM_DEFINES) -DGL -I $(PDK_PATH) \
-	-I $(CARAVEL_BEHAVIOURAL_MODELS) -I $(CARAVEL_RTL_PATH) -I $(CARAVEL_VERILOG_PATH) \
-	-I $(UPRJ_BEHAVIOURAL_MODELS) -I$(UPRJ_RTL_PATH) -I $(UPRJ_VERILOG_PATH) \
-	-I $(CARAVEL_MGMT_RTL_PATH) -I $(CARAVEL_MGMT_VERILOG_PATH) \
+	iverilog $(SIM_DEFINES) -DGL \
+	-l$(USER_PROJECT_VERILOG)/rtl/user_defines.v \
+	-f$(VERILOG_PATH)/includes/includes.gl.caravel \
+	-f$(USER_PROJECT_VERILOG)/includes/includes.gl.caravel_user_project \
 	$< -o $@ 
 endif
 
@@ -41,8 +41,8 @@ check-env:
 ifndef PDK_ROOT
 	$(error PDK_ROOT is undefined, please export it before running make)
 endif
-ifeq (,$(wildcard $(PDK_ROOT)/sky130A))
-	$(error $(PDK_ROOT)/sky130A not found, please install pdk before running make)
+ifeq (,$(wildcard $(PDK_ROOT)/$(PDK)))
+	$(error $(PDK_ROOT)/$(PDK) not found, please install pdk before running make)
 endif
 
 clean:

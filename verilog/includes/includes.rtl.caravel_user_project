@@ -1,5 +1,30 @@
 # Caravel user project includes
--v $(USER_PROJECT_VERILOG)/rtl/user_project_wrapper.v	     
--v $(USER_PROJECT_VERILOG)/rtl/user_proj_example.v
 
- 
+-v $(USER_PROJECT_VERILOG)/dv/vip/spiflash_microwatt.v
+-v $(USER_PROJECT_VERILOG)/dv/vip/tbuart_microwatt.v
+-v $(USER_PROJECT_VERILOG)/dv/vip/Microwatt_FP_DFFRFile.v
+-v $(USER_PROJECT_VERILOG)/dv/vip/multiply_add_64x64.v
+-v $(USER_PROJECT_VERILOG)/dv/vip/RAM32_1RW1R.v
+-v $(USER_PROJECT_VERILOG)/dv/vip/RAM512.v
+
+# JTAG
+-v $(USER_PROJECT_VERILOG)/rtl/tap_top.v
+
+# UART
+-v $(USER_PROJECT_VERILOG)/rtl/raminfr.v
+-v $(USER_PROJECT_VERILOG)/rtl/uart_defines.v
+-v $(USER_PROJECT_VERILOG)/rtl/uart_receiver.v
+-v $(USER_PROJECT_VERILOG)/rtl/uart_regs.v
+-v $(USER_PROJECT_VERILOG)/rtl/uart_rfifo.v
+-v $(USER_PROJECT_VERILOG)/rtl/uart_sync_flops.v
+-v $(USER_PROJECT_VERILOG)/rtl/uart_tfifo.v
+-v $(USER_PROJECT_VERILOG)/rtl/uart_top.v
+-v $(USER_PROJECT_VERILOG)/rtl/uart_transmitter.v
+-v $(USER_PROJECT_VERILOG)/rtl/uart_wb.v
+
+# Simplebus
+-v $(USER_PROJECT_VERILOG)/rtl/simplebus_host.v
+
+# Microwatt
+-v $(USER_PROJECT_VERILOG)/rtl/microwatt.v
+-v $(USER_PROJECT_VERILOG)/rtl/user_project_wrapper.v

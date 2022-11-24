@@ -132,8 +132,6 @@
 //
 //
 
-`include "uart_defines.v"
-
 module uart_top	(
 	wb_clk_i, 
 	

@@ -21,10 +21,6 @@
 
 `timescale 1 ns / 1 ps
 
-`include "uprj_netlists.v"
-`include "caravel_netlists.v"
-`include "spiflash.v"
-
 module jtag_expect_idcode (
 	input tdo,
 	input tck,
@@ -232,7 +228,7 @@ module jtag_tb;
 		.resetb	  (RSTB)
 	);
 
-	spiflash #(
+	spiflash_microwatt #(
 		.FILENAME("microwatt.hex")
 	) spiflash_microwatt (
 		.csb(user_flash_csb),

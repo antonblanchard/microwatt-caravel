@@ -135,8 +135,6 @@
 //
 //
 
-`include "uart_defines.v"
-
 module uart_tfifo (clk, 
 	wb_rst_i, data_in, data_out,
 // Control signals

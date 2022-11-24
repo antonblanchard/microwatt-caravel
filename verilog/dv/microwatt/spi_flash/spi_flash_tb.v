@@ -20,11 +20,6 @@
 
 `timescale 1 ns / 1 ps
 
-`include "uprj_netlists.v"
-`include "caravel_netlists.v"
-`include "spiflash.v"
-`include "tbuart_modified.v"
-
 module spi_flash;
 	reg clock;
 	reg RSTB;
@@ -147,7 +142,7 @@ module spi_flash;
 		.resetb	  (RSTB)
 	);
 
-	spiflash #(
+	spiflash_microwatt #(
 		.FILENAME("microwatt.hex")
 	) spiflash_microwatt (
 		.csb(user_flash_csb),
@@ -156,7 +151,7 @@ module spi_flash;
 		.io1(user_flash_io1)
 	);
 
-	tbuart_modified #(
+	tbuart_microwatt #(
 		.baud_rate(115200)
 	) tbuart (
 		.ser_rx(uart_tx)

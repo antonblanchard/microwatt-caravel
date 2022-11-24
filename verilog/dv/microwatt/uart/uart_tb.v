@@ -20,10 +20,6 @@
 
 `timescale 1 ns / 1 ps
 
-`include "uprj_netlists.v"
-`include "caravel_netlists.v"
-`include "spiflash.v"
-
 module tbuart_expect_seven # (
 	parameter baud_rate = 115200
 ) (
@@ -214,7 +210,7 @@ module uart_tb;
 		.resetb	  (RSTB)
 	);
 
-	spiflash #(
+	spiflash_microwatt #(
 		.FILENAME("microwatt.hex")
 	) spiflash_microwatt (
 		.csb(user_flash_csb),

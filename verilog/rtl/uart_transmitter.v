@@ -145,8 +145,6 @@
 //
 //
 
-`include "uart_defines.v"
-
 module uart_transmitter
 #(parameter SIM = 0)
  (clk, wb_rst_i, lcr, tf_push, wb_dat_i, enable,	stx_pad_o, tstate, tf_count, tx_reset, lsr_mask);

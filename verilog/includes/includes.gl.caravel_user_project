@@ -1,3 +1,10 @@
 # Caravel user project includes	     
--v $(USER_PROJECT_VERILOG)/gl/user_project_wrapper.v	     
--v $(USER_PROJECT_VERILOG)/gl/user_proj_example.v     
+
+-v $(USER_PROJECT_VERILOG)/dv/vip/spiflash_microwatt.v
+-v $(USER_PROJECT_VERILOG)/dv/vip/tbuart_microwatt.v
+
+-v $(USER_PROJECT_VERILOG)/gl/Microwatt_FP_DFFRFile.v
+-v $(USER_PROJECT_VERILOG)/gl/multiply_add_64x64.v
+-v $(USER_PROJECT_VERILOG)/gl/RAM32_1RW1R.v
+-v $(USER_PROJECT_VERILOG)/gl/RAM512.v
+-v $(USER_PROJECT_VERILOG)/gl/user_project_wrapper.v
