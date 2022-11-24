@@ -79,10 +79,10 @@ set ::env(EXTRA_GDS_FILES) "\
 	$script_dir/../../gds/multiply_add_64x64.gds"
 
 set ::env(EXTRA_LIBS) "\
-	$script_dir/RAM512.lib \
-	$script_dir/RAM32_1RW1R.lib \
-	$script_dir/Microwatt_FP_DFFRFile.lib \
-	$script_dir/multiply_add_64x64.lib"
+	$script_dir/../../lib/RAM512.lib \
+	$script_dir/../../lib/RAM32_1RW1R.lib \
+	$script_dir/../../lib/Microwatt_FP_DFFRFile.lib \
+	$script_dir/../../lib/multiply_add_64x64.lib"
 
 # disable pdn check nodes becuase it hangs with multiple power domains.
 # any issue with pdn connections will be flagged with LVS so it is not a critical check.
