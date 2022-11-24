@@ -18,10 +18,9 @@ jobs:
 
     env:
           PDK: sky130B
-          #PDK_ROOT: /home/runner/work/pdk
-          #OPENLANE_ROOT: /home/runner/work/caravel_user_project/openlane
           PDK_ROOT: ${{ github.workspace }}/pdk
           PDKPATH: ${{ github.workspace }}/pdk/sky130B
+          # Make sure this doesn't overlap the caravel_user_project/openlane directory 
           OPENLANE_ROOT: ${{ github.workspace }}/Openlane
           INPUT_DIRECTORY: ${{ github.workspace }}
           PRECHECK_ROOT: ${{ github.workspace }}/mpw_precheck
