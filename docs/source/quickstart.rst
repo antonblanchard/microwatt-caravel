@@ -57,7 +57,12 @@ Starting your project
 	export PDK_ROOT=$(pwd)/dependencies/pdks # you need to export this whenever you start a new shell
 
 	# export the PDK variant depending on your shuttle, if you don't know leave it to the default
+	
+	# for sky130 MPW shuttles....
 	export PDK=sky130B
+
+    	# for the GFMPW shuttles...
+	export PDK=gf180mcuC
 
         make setup
 
@@ -112,6 +117,28 @@ Starting your project
 
             # for example
             make verify-io_ports-rtl
+
+#.  Run opensta on your design
+
+    *   Extract spefs for ``user_project_wrapper`` and macros inside it:
+
+        .. code:: bash
+
+            make extract-parasitics
+
+    *   Create spef mapping file that maps instance names to spef files:
+
+        .. code:: bash
+
+            make create-spef-mapping
+
+    *   Run opensta:
+
+        .. code:: bash
+
+            make caravel-sta
+
+	
 	
 #.  Run the precheck locally 
 
