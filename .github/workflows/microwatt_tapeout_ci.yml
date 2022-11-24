@@ -28,7 +28,7 @@ jobs:
           OUTPUT: ${{ github.workspace }}/mpw_precheck_result/logs/precheck.log
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Install dependencies
         run: |
@@ -51,7 +51,7 @@ jobs:
           exit 2
       - name: upload failure logs
         if: failure()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: mpw_precheck.error
           path: |
@@ -75,7 +75,7 @@ jobs:
         ]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Create environment variables
         run: |
