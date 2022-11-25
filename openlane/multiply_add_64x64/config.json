@@ -1,0 +1,52 @@
+{
+    "DESIGN_NAME": "multiply_add_64x64",
+    "VERILOG_FILES": ["dir::src/multiply_add_64x64.v"],
+
+    "CLOCK_PERIOD": 10,
+    "CLOCK_PORT": "clk",
+    "CLOCK_NET": "clk",
+
+    "FP_SIZING": "absolute",
+    "DIE_AREA": "0 0 500 500",
+
+    "DESIGN_IS_CORE": 0,
+    "FP_PDN_CORE_RING": 0,
+    "RT_MAX_LAYER": "met4",
+
+    "FP_PIN_ORDER_CFG": "dir::pin_order.cfg",
+
+    "IO_PCT": "0.4",
+
+    "SYNTH_READ_BLACKBOX_LIB": "1",
+
+    "VDD_NETS": ["VPWR"],
+    "GND_NETS": ["VGND"],
+
+    "FP_PDN_VWIDTH": 3.1,
+    "FP_PDN_HWIDTH": 3.1,
+    "FP_PDN_VSPACING": "expr::(5 * $FP_PDN_VWIDTH)",
+    "FP_PDN_HSPACING": "expr::(5 * $FP_PDN_VWIDTH)",
+    "FP_PDN_VPITCH": 180,
+    "FP_PDN_HPITCH": 180,
+    "FP_PDN_VOFFSET": 5,
+    "FP_PDN_HOFFSET": 5,
+
+    "SYNTH_STRATEGY": "DELAY 4",
+    "SYNTH_MAX_FANOUT": "10",
+
+    "PL_TARGET_DENSITY": "0.74",
+
+    "GRT_ADJUSTMENT": "0.2",
+
+    "CTS_CLK_BUFFER_LIST": ["sky130_fd_sc_hd__clkbuf_8", "sky130_fd_sc_hd__clkbuf_4", "sky130_fd_sc_hd__clkbuf_2"],
+    "CTS_DISABLE_POST_PROCESSING": "1",
+    "CTS_DISTANCE_BETWEEN_BUFFERS": "250",
+
+    "RUN_KLAYOUT": "0",
+
+    "GPL_CELL_PADDING": "2",
+    "DPL_CELL_PADDING": "0",
+    "DIODE_PADDING": "0",
+
+    "ROUTING_CORES": "24"
+}
