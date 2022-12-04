@@ -8,11 +8,9 @@
     "BASE_SDC_FILE": "dir::base.sdc",
 
     "FP_SIZING": "absolute",
-    "DIE_AREA": "0 0 700 700",
 
     "DESIGN_IS_CORE": 0,
     "FP_PDN_CORE_RING": 0,
-    "RT_MAX_LAYER": "met4",
 
     "FP_PIN_ORDER_CFG": "dir::pin_order.cfg",
 
@@ -33,17 +31,30 @@
     "SYNTH_STRATEGY": "DELAY 4",
     "SYNTH_MAX_FANOUT": "10",
 
-    "PL_TARGET_DENSITY": "0.68",
-
-    "CTS_CLK_BUFFER_LIST": ["sky130_fd_sc_hd__clkbuf_8", "sky130_fd_sc_hd__clkbuf_4", "sky130_fd_sc_hd__clkbuf_2"],
-    "CTS_DISABLE_POST_PROCESSING": "1",
-    "CTS_DISTANCE_BETWEEN_BUFFERS": "250",
-
     "RUN_KLAYOUT": "0",
 
     "GPL_CELL_PADDING": "2",
     "DPL_CELL_PADDING": "0",
     "DIODE_PADDING": "0",
+
+    "pdk::sky130*": {
+        "CTS_CLK_BUFFER_LIST": ["sky130_fd_sc_hd__clkbuf_8", "sky130_fd_sc_hd__clkbuf_4", "sky130_fd_sc_hd__clkbuf_2"],
+        "CTS_DISABLE_POST_PROCESSING": "1",
+        "CTS_DISTANCE_BETWEEN_BUFFERS": "250",
+
+        "RT_MAX_LAYER": "met4",
+        "DIE_AREA": "0 0 700 700",
+        "PL_TARGET_DENSITY": "0.68"
+     },
+    "pdk::gf180mcuC": {
+        "STD_CELL_LIBRARY": "gf180mcu_fd_sc_mcu7t5v0",
+
+        "RT_MAX_LAYER": "Metal4",
+        "DIE_AREA": "0 0 1150 1150",
+        "PL_TARGET_DENSITY": "0.73",
+
+        "DIODE_INSERTION_STRATEGY": "0"
+    },
 
     "ROUTING_CORES": "24"
 }
