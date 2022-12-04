@@ -1,17 +1,14 @@
 {
     "DESIGN_NAME": "multiply_add_64x64",
-    "VERILOG_FILES": ["dir::src/multiply_add_64x64.v"],
 
-    "CLOCK_PERIOD": 10,
+    "CLOCK_PERIOD": 15,
     "CLOCK_PORT": "clk",
     "CLOCK_NET": "clk",
 
     "FP_SIZING": "absolute",
-    "DIE_AREA": "0 0 500 500",
 
     "DESIGN_IS_CORE": 0,
     "FP_PDN_CORE_RING": 0,
-    "RT_MAX_LAYER": "met4",
 
     "FP_PIN_ORDER_CFG": "dir::pin_order.cfg",
 
@@ -34,19 +31,35 @@
     "SYNTH_STRATEGY": "DELAY 4",
     "SYNTH_MAX_FANOUT": "10",
 
-    "PL_TARGET_DENSITY": "0.74",
-
-    "GRT_ADJUSTMENT": "0.2",
-
-    "CTS_CLK_BUFFER_LIST": ["sky130_fd_sc_hd__clkbuf_8", "sky130_fd_sc_hd__clkbuf_4", "sky130_fd_sc_hd__clkbuf_2"],
-    "CTS_DISABLE_POST_PROCESSING": "1",
-    "CTS_DISTANCE_BETWEEN_BUFFERS": "250",
-
     "RUN_KLAYOUT": "0",
 
     "GPL_CELL_PADDING": "2",
-    "DPL_CELL_PADDING": "0",
+    "DPL_CELL_PADDING": "1",
     "DIODE_PADDING": "0",
+
+    "pdk::sky130*": {
+        "VERILOG_FILES": ["dir::src/multiply_add_64x64.v"],
+
+        "RT_MAX_LAYER": "met4",
+        "DIE_AREA": "0 0 500 500",
+        "PL_TARGET_DENSITY": "0.74",
+        "GRT_ADJUSTMENT": "0.2",
+
+        "CTS_CLK_BUFFER_LIST": ["sky130_fd_sc_hd__clkbuf_8", "sky130_fd_sc_hd__clkbuf_4", "sky130_fd_sc_hd__clkbuf_2"],
+        "CTS_DISABLE_POST_PROCESSING": "1",
+        "CTS_DISTANCE_BETWEEN_BUFFERS": "250"
+    },
+    "pdk::gf180mcuC": {
+        "STD_CELL_LIBRARY": "gf180mcu_fd_sc_mcu7t5v0",
+
+        "VERILOG_FILES": ["dir::src/gf180mcu/multiply_add_64x64.v"],
+
+        "RT_MAX_LAYER": "Metal4",
+        "DIE_AREA": "0 0 900 900",
+        "PL_TARGET_DENSITY": "0.73",
+
+        "DIODE_INSERTION_STRATEGY": "0"
+    },
 
     "ROUTING_CORES": "24"
 }
