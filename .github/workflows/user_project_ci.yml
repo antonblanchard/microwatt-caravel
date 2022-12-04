@@ -1,7 +1,7 @@
 name: Upstream CI
 
 # Disable upstream CI
-on:
+#on:
   # Runs on Every Push
 #  push:
   # Runs on Pull Requests
