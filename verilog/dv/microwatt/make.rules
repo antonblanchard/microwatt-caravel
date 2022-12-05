@@ -29,7 +29,7 @@ ifeq ($(SIM),RTL)
 else
 	iverilog $(SIM_DEFINES) -DGL \
 	-l$(USER_PROJECT_VERILOG)/rtl/user_defines.v \
-	-f$(VERILOG_PATH)/includes/includes.gl.caravel \
+	-f$(USER_PROJECT_VERILOG)/includes/includes.gl.caravel \
 	-f$(USER_PROJECT_VERILOG)/includes/includes.gl.caravel_user_project \
 	$< -o $@ 
 endif
