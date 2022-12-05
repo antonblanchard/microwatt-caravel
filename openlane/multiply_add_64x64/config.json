@@ -41,9 +41,8 @@
         "VERILOG_FILES": ["dir::src/multiply_add_64x64.v"],
 
         "RT_MAX_LAYER": "met4",
-        "DIE_AREA": "0 0 500 500",
-        "PL_TARGET_DENSITY": "0.74",
-        "GRT_ADJUSTMENT": "0.2",
+        "DIE_AREA": "0 0 550 550",
+        "PL_TARGET_DENSITY": "0.70",
 
         "CTS_CLK_BUFFER_LIST": ["sky130_fd_sc_hd__clkbuf_8", "sky130_fd_sc_hd__clkbuf_4", "sky130_fd_sc_hd__clkbuf_2"],
         "CTS_DISABLE_POST_PROCESSING": "1",
