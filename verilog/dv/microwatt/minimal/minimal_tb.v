@@ -69,7 +69,7 @@ module minimal;
 
 		// Set the timeout at around 10x what the test should finish
 		// in
-		repeat (200000) begin
+		repeat (20000) begin
 			@(posedge clock);
 		end
 
