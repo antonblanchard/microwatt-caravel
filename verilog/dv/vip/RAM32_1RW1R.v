@@ -1,3 +1,4 @@
+`default_nettype none
 module RAM32_1RW1R #(
     parameter BITS=5
 ) (
@@ -38,3 +39,4 @@ module RAM32_1RW1R #(
     endgenerate
 
 endmodule
+`default_nettype wire

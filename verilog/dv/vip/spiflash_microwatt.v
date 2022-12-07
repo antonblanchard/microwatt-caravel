@@ -445,3 +445,4 @@ module spiflash_microwatt #(
 		end
 	end
 endmodule
+`default_nettype wire

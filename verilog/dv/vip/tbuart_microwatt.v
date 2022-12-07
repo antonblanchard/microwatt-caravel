@@ -81,3 +81,4 @@ module tbuart_microwatt # (
 	end
 
 endmodule
+`default_nettype wire

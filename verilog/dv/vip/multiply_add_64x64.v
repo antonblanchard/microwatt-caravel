@@ -1,3 +1,4 @@
+`default_nettype none
 module multiply_add_64x64
 #(
     parameter BITS=64
@@ -20,3 +21,4 @@ module multiply_add_64x64
 
     assign o = o_tmp;
 endmodule
+`default_nettype wire

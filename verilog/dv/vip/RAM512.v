@@ -1,3 +1,4 @@
+`default_nettype none
 module RAM512 #(
     parameter BITS=9,
     parameter FILENAME="firmware.hex"
@@ -40,3 +41,4 @@ module RAM512 #(
 //end
 
 endmodule
+`default_nettype wire
