@@ -1,12 +1,12 @@
 #!/bin/bash -e
 
 # Where to do tape out - WARNING: needs ~20GB of disk
-export MPW=/scratch/mpw7
+export MPW=/scratch/mpw8
 
 # Build macros in parallel - WARNING: needs lots of RAM
 PARALLEL=1
 
-export PDK=sky130B
+export PDK=sky130A
 
 export ROUTING_CORES=$(nproc)
 
@@ -19,9 +19,9 @@ export MCW_ROOT=$CARAVEL_USER_PROJECT_ROOT/mgmt_core_wrapper
 mkdir -p $MPW
 cd $MPW
 
-git clone --depth 1 https://github.com/antonblanchard/microwatt-caravel -b sky130-mpw7-tapeout-5 caravel_user_project
+git clone --depth 1 https://github.com/antonblanchard/microwatt-caravel -b sky130-mpw8-tapeout-1 caravel_user_project
 
-git clone --depth 1 https://github.com/antonblanchard/DFFRAM -b microwatt-20221122
+git clone --depth 1 https://github.com/antonblanchard/DFFRAM -b microwatt-20221228
 
 git clone --depth 1 https://github.com/antonblanchard/microwatt -b caravel-mpw7-20221125
 
@@ -46,11 +46,35 @@ cd $MPW/caravel_user_project
 # copy in Microwatt Verilog
 cp $MPW/microwatt/microwatt_asic_processed.v verilog/rtl/microwatt.v
 
+cat > $MPW/DFFRAM/ram512_pin_order.cfg << EOF
+#S
+A0.*
+Di0.*
+CLK
+Do0.*
+WE0.*
+EN0.*
+EOF
+
+cat > $MPW/DFFRAM/ram32_1rw1r_pin_order.cfg << EOF
+#N
+CLK
+EN0.*
+EN1.*
+WE0.*
+A0.*
+A1.*
+Di0.*
+Do1.*
+#S
+Do0.*
+EOF
+
 if [ $PARALLEL -eq 1 ]; then
 	cd $MPW/DFFRAM
 	# Build cache and main RAM DFFRAMs
-	./dffram.py --pdk-root $PDK_ROOT --size 32x64 --variant 1RW1R --min-height 180 > $MPW/1.out 2>&1 &
-	./dffram.py --pdk-root $PDK_ROOT --size 512x64 --vertical-halo 100 --horizontal-halo 20 > $MPW/2.out 2>&1 &
+	./dffram.py --pdk-root $PDK_ROOT --size 32x64 --variant 1RW1R --min-height 180 --pin_order=ram32_1rw1r_pin_order.cfg > $MPW/1.out 2>&1 &
+	./dffram.py --pdk-root $PDK_ROOT --size 512x64 --vertical-halo 100 --horizontal-halo 20 --pin_order=ram512_pin_order.cfg > $MPW/2.out 2>&1 &
 	cd $MPW/caravel_user_project
 
 	make multiply_add_64x64 > $MPW/3.out 2>&1 &
@@ -62,8 +86,8 @@ if [ $PARALLEL -eq 1 ]; then
 else
 	cd $MPW/DFFRAM
 	# Build cache and main RAM DFFRAMs
-	./dffram.py --pdk-root $PDK_ROOT --size 32x64 --variant 1RW1R --min-height 180
-	./dffram.py --pdk-root $PDK_ROOT --size 512x64 --vertical-halo 100 --horizontal-halo 20
+	./dffram.py --pdk-root $PDK_ROOT --size 32x64 --variant 1RW1R --min-height 180 --pin_order=ram32_1rw1r_pin_order.cfg
+	./dffram.py --pdk-root $PDK_ROOT --size 512x64 --vertical-halo 100 --horizontal-halo 20 --pin_order=ram512_pin_order.cfg
 	cd $MPW/caravel_user_project
 
 	make multiply_add_64x64
